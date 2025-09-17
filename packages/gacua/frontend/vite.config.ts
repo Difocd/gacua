@@ -10,12 +10,11 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
-  const HOST = '0.0.0.0';
 
   return {
     plugins: [react(), tailwindcss()],
     server: {
-      host: HOST,
+      host: env['VITE_HOST'],
       port: parseInt(env['VITE_PORT']),
       proxy: {
         '/api': {
@@ -32,9 +31,6 @@ export default defineConfig(({ mode }) => {
           changeOrigin: true,
         },
       },
-    },
-    build: {
-      outDir: 'dist',
     },
   };
 });
