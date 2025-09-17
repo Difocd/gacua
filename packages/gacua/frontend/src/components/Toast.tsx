@@ -55,7 +55,7 @@ const Toast: React.FC<ToastProps> = ({ onToast }) => {
   if (toasts.length === 0) return null;
 
   return (
-    <div className="fixed top-4 right-4 md:top-4 top-20 z-10 space-y-2">
+    <div className="absolute top-4 right-4 z-10 space-y-2">
       {toasts.map((toast) => {
         const getToastStyle = () => {
           switch (toast.type) {
