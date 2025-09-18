@@ -19,17 +19,11 @@ export default function Header({
 }: HeaderProps) {
   return (
     <div className="bg-gray-800 text-white flex justify-between p-4">
-      <button
-        onClick={onToggleSessions}
-        className="hover:text-gray-300"
-      >
+      <button onClick={onToggleSessions} className="hover:text-gray-300">
         Sessions
       </button>
       <h1 className="text-xl font-bold">GACUA</h1>
-      <button
-        onClick={onToggleSettings}
-        className="hover:text-gray-300"
-      >
+      <button onClick={onToggleSettings} className="hover:text-gray-300">
         Settings
       </button>
     </div>

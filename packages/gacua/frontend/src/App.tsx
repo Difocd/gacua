@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import type { ToolReviewResponse } from '@gacua/shared';
 
 import Sessions from './components/Sessions.js';
@@ -21,14 +21,6 @@ function App() {
   const [model, setModel] = useState('gemini-2.5-pro');
 
   const accessToken = new URLSearchParams(window.location.search).get('token');
-
-  const showToastRef = useRef<
-    | ((
-        message: string,
-        type?: 'error' | 'success' | 'info' | 'warning',
-      ) => void)
-    | null
-  >(null);
 
   const {
     sessions,
@@ -159,23 +151,6 @@ function App() {
   );
 
   useEffect(() => {
-    const originalError = console.error;
-    console.error = (...args: unknown[]) => {
-      const message = args
-        .map((arg) => (typeof arg === 'string' ? arg : JSON.stringify(arg)))
-        .join(' ');
-      if (showToastRef.current) {
-        showToastRef.current(message, 'error');
-      }
-      originalError(...args);
-    };
-
-    return () => {
-      console.error = originalError;
-    };
-  }, []);
-
-  useEffect(() => {
     loadSessionsMetadata();
     connectWebSocket();
 
@@ -197,51 +172,48 @@ function App() {
 
   return (
     <div className="h-svh flex flex-col">
-      <div className="flex h-full">
-        {/* Sessions Panel */}
-        <div
-          className={`${isSessionsOpen ? 'block' : 'hidden'} fixed lg:relative left-0 h-full z-20 lg:z-0`}
-        >
-          <Sessions
-            sessions={sessions}
-            currentSessionId={selectedSessionId}
-            onSwitchSession={(id) => {
-              switchSession(id);
-              setIsSessionsOpen(false);
-            }}
-            onClose={() => setIsSessionsOpen(false)}
-          />
-        </div>
+      {/* Sessions Panel */}
+      <div
+        className={`${isSessionsOpen ? 'block' : 'hidden'} fixed lg:relative left-0 h-full z-20 lg:z-0`}
+      >
+        <Sessions
+          sessions={sessions}
+          currentSessionId={selectedSessionId}
+          onSwitchSession={(id) => {
+            switchSession(id);
+            setIsSessionsOpen(false);
+          }}
+          onClose={() => setIsSessionsOpen(false)}
+        />
+      </div>
 
-        {/* Main Content */}
-        <div className="flex-1 flex flex-col">
-          <Header
-            isSessionsOpen={isSessionsOpen}
-            isSettingsOpen={isSettingsOpen}
-            onToggleSessions={() => setIsSessionsOpen(!isSessionsOpen)}
-            onToggleSettings={() => setIsSettingsOpen(!isSettingsOpen)}
-          />
-          <Chat
-            messages={messages}
-            currentSessionId={selectedSessionId}
-            input={input}
-            model={model}
-            loading={generating}
-            accessToken={accessToken}
-            onInputChange={handleInputChange}
-            onModelChange={handleModelChange}
-            onSubmit={handleSubmit}
-            onToolReviewResponse={handleToolReviewResponse}
-            showToastRef={showToastRef}
-          />
-        </div>
+      {/* Main Content */}
+      <div className="flex-1 flex flex-col">
+        <Header
+          isSessionsOpen={isSessionsOpen}
+          isSettingsOpen={isSettingsOpen}
+          onToggleSessions={() => setIsSessionsOpen(!isSessionsOpen)}
+          onToggleSettings={() => setIsSettingsOpen(!isSettingsOpen)}
+        />
+        <Chat
+          messages={messages}
+          currentSessionId={selectedSessionId}
+          input={input}
+          model={model}
+          loading={generating}
+          accessToken={accessToken}
+          onInputChange={handleInputChange}
+          onModelChange={handleModelChange}
+          onSubmit={handleSubmit}
+          onToolReviewResponse={handleToolReviewResponse}
+        />
+      </div>
 
-        {/* Settings Panel */}
-        <div
-          className={`${isSettingsOpen ? 'block' : 'hidden'} fixed lg:relative right-0 h-full z-20 lg:z-0`}
-        >
-          <Settings onClose={() => setIsSettingsOpen(false)} />
-        </div>
+      {/* Settings Panel */}
+      <div
+        className={`${isSettingsOpen ? 'block' : 'hidden'} fixed lg:relative right-0 h-full z-20 lg:z-0`}
+      >
+        <Settings onClose={() => setIsSettingsOpen(false)} />
       </div>
 
       {/* Mobile Overlays */}

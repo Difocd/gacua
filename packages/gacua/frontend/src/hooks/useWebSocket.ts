@@ -11,12 +11,15 @@ import type {
   ToolReviewResponseRequest,
   ToolReviewResponse,
 } from '@gacua/shared';
+import { useErrorHandler } from './useErrorHandler.js';
 
 export function useWebSocket(
   accessToken: string | null,
   onEvent: (event: ServerEvent) => void,
 ) {
   const wsRef = useRef<WebSocket | null>(null);
+
+  const { handleError } = useErrorHandler();
 
   const connectWebSocket = useCallback(() => {
     if (wsRef.current) {
@@ -63,6 +66,7 @@ export function useWebSocket(
     };
 
     ws.onerror = (error) => {
+      handleError('WebSocket connection error occurred.', true);
       console.error(
         'WebSocket connection error occurred.',
         'Error event:',

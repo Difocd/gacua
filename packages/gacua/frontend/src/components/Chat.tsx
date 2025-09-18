@@ -22,13 +22,6 @@ interface ChatProps {
   onModelChange: (model: string) => void;
   onSubmit: (e: React.FormEvent) => void;
   onToolReviewResponse: (toolReviewResponse: ToolReviewResponse) => void;
-  showToastRef: React.MutableRefObject<
-    | ((
-        message: string,
-        type?: 'error' | 'success' | 'info' | 'warning',
-      ) => void)
-    | null
-  >;
 }
 
 const Chat: React.FC<ChatProps> = ({
@@ -42,15 +35,10 @@ const Chat: React.FC<ChatProps> = ({
   onModelChange,
   onSubmit,
   onToolReviewResponse,
-  showToastRef,
 }) => {
   return (
     <div className="flex-1 relative">
-      <Toast
-        onToast={(callback) => {
-          showToastRef.current = callback;
-        }}
-      />
+      <Toast />
       <Messages
         messages={messages}
         currentSessionId={currentSessionId}
