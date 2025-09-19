@@ -5,15 +5,11 @@
  */
 
 interface HeaderProps {
-  isSessionsOpen: boolean;
-  isSettingsOpen: boolean;
   onToggleSessions: () => void;
   onToggleSettings: () => void;
 }
 
 export default function Header({
-  isSessionsOpen,
-  isSettingsOpen,
   onToggleSessions,
   onToggleSettings,
 }: HeaderProps) {

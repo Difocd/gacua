@@ -44,35 +44,21 @@ export function useWebSocket(
         const serverEvent: ServerEvent = JSON.parse(event.data);
         onEvent(serverEvent);
       } catch (error) {
-        console.error(
-          'Failed to parse WebSocket message as JSON:',
-          error,
-          'Raw message:',
-          event.data,
+        handleError(
+          `Failed to parse WebSocket message as JSON: ${error}. Raw message: ${event.data}`,
         );
       }
     };
 
     ws.onclose = (event) => {
-      console.log(
-        'WebSocket connection closed.',
-        'Code:',
-        event.code,
-        'Reason:',
-        event.reason,
-        'Was clean:',
-        event.wasClean,
+      handleError(
+        `WebSocket connection closed. Code: ${event.code}. Reason: ${event.reason}. Was clean: ${event.wasClean}`,
       );
     };
 
-    ws.onerror = (error) => {
-      handleError('WebSocket connection error occurred.', true);
-      console.error(
-        'WebSocket connection error occurred.',
-        'Error event:',
-        error,
-        'Connection state:',
-        ['CONNECTING', 'OPEN', 'CLOSING', 'CLOSED'][ws.readyState] ?? 'UNKNOWN',
+    ws.onerror = (_) => {
+      handleError(
+        `WebSocket connection error occurred. Connection state: ${['CONNECTING', 'OPEN', 'CLOSING', 'CLOSED'][ws.readyState] ?? 'UNKNOWN'}`,
       );
     };
   }, [accessToken, onEvent]);
@@ -80,9 +66,8 @@ export function useWebSocket(
   const sendUserInput = useCallback(
     (sessionId: string, input: string, model: string) => {
       if (!wsRef.current) {
-        console.error(
-          'Cannot submit message - WebSocket connection is not available. Connection state:',
-          wsRef.current,
+        handleError(
+          `Cannot submit message - WebSocket connection is not available.`,
         );
         return false;
       }
@@ -104,9 +89,8 @@ export function useWebSocket(
   const sendToolReviewResponse = useCallback(
     (sessionId: string, toolReviewResponse: ToolReviewResponse) => {
       if (!wsRef.current) {
-        console.error(
-          'Cannot send tool review response - WebSocket connection is not available. Connection state:',
-          wsRef.current,
+        handleError(
+          `Cannot send tool review response - WebSocket connection is not available.`,
         );
         return false;
       }

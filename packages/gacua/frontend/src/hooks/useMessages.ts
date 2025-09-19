@@ -10,6 +10,7 @@ import type {
   PersistentMessage,
   ServerEvent,
 } from '@gacua/shared';
+import { useErrorHandler } from './useErrorHandler.js';
 
 export function useMessages(accessToken: string | null) {
   const [messages, setMessages] = useState<DisplayMessage[] | null>(null);
@@ -18,6 +19,8 @@ export function useMessages(accessToken: string | null) {
     thought: '',
     text: '',
   });
+
+  const { handleError } = useErrorHandler();
 
   const deserializeMessage = (
     message: Omit<PersistentMessage, 'timestamp'> & { timestamp: string },
@@ -41,17 +44,14 @@ export function useMessages(accessToken: string | null) {
           const transformedMessages = messagesData.map(deserializeMessage);
           setMessages(transformedMessages);
         } else {
-          console.error(
-            `Failed to load messages for session ${sessionId} - HTTP response not ok:`,
-            response.status,
-            response.statusText,
+          handleError(
+            `Failed to load messages for session ${sessionId} - HTTP response not ok: ${response.status} ${response.statusText}`,
           );
           setMessages(null);
         }
       } catch (error) {
-        console.error(
-          `Network or parsing error while loading messages for session ${sessionId}:`,
-          error,
+        handleError(
+          `Network or parsing error while loading messages for session ${sessionId}: ${error}`,
         );
         setMessages(null);
       }
@@ -132,9 +132,8 @@ export function useMessages(accessToken: string | null) {
         }
 
         if (sessionStatus.status === 'error') {
-          console.error(
-            `Session ${serverEvent.sessionId} encountered an error:`,
-            sessionStatus.message,
+          handleError(
+            `Session ${serverEvent.sessionId} encountered an error: ${sessionStatus.message}`,
           );
         }
         break;

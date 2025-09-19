@@ -5,12 +5,13 @@
  */
 
 import { useState, useEffect, useCallback } from 'react';
-import type { ToolReviewResponse } from '@gacua/shared';
+import type { ServerEvent, ToolReviewResponse } from '@gacua/shared';
 
 import Sessions from './components/Sessions.js';
 import Settings from './components/Settings.js';
 import Chat from './components/Chat.js';
 import Header from './components/Header.js';
+import { useErrorHandler } from './hooks/useErrorHandler.js';
 import { useSessions } from './hooks/useSessions.js';
 import { useWebSocket } from './hooks/useWebSocket.js';
 import { useMessages } from './hooks/useMessages.js';
@@ -19,6 +20,8 @@ import { useUIState } from './hooks/useUIState.js';
 function App() {
   const [input, setInput] = useState('');
   const [model, setModel] = useState('gemini-2.5-pro');
+
+  const { handleError } = useErrorHandler();
 
   const accessToken = new URLSearchParams(window.location.search).get('token');
 
@@ -42,7 +45,7 @@ function App() {
   } = useMessages(accessToken);
 
   const handleEvent = useCallback(
-    (serverEvent: any) => {
+    (serverEvent: ServerEvent) => {
       handleServerEvent(serverEvent);
       if (serverEvent.type === 'session_status') {
         updateSessionStatus(
@@ -74,7 +77,7 @@ function App() {
 
       const session = sessions.find((s) => s.id === sessionId);
       if (!session) {
-        console.error(
+        handleError(
           `Session with ID ${sessionId} not found in available sessions`,
         );
         return;
@@ -101,7 +104,7 @@ function App() {
       if (!input.trim()) return;
 
       if (selectedSessionId !== null && messages === null) {
-        console.error(
+        handleError(
           `Cannot submit message - Messages not loaded for session ${selectedSessionId}.`,
         );
         return;
@@ -138,9 +141,8 @@ function App() {
   const handleToolReviewResponse = useCallback(
     async (toolReviewResponse: ToolReviewResponse) => {
       if (selectedSessionId === null) {
-        console.error(
-          'Cannot send tool review response - No active session selected. Current session ID:',
-          selectedSessionId,
+        handleError(
+          `Cannot send tool review response - No active session selected. Current session ID: ${selectedSessionId}`,
         );
         return;
       }
@@ -158,6 +160,7 @@ function App() {
   }, [loadSessionsMetadata, connectWebSocket, closeConnection]);
 
   const {
+    isBigScreen,
     isSessionsOpen,
     isSettingsOpen,
     setIsSessionsOpen,
@@ -171,7 +174,7 @@ function App() {
   }, [selectedSessionId, handleSessionSwitch]);
 
   return (
-    <div className="h-svh flex flex-col">
+    <div className="h-svh flex flex-1">
       {/* Sessions Panel */}
       <div
         className={`${isSessionsOpen ? 'block' : 'hidden'} fixed lg:relative left-0 h-full z-20 lg:z-0`}
@@ -181,7 +184,9 @@ function App() {
           currentSessionId={selectedSessionId}
           onSwitchSession={(id) => {
             switchSession(id);
-            setIsSessionsOpen(false);
+            if (!isBigScreen) {
+              setIsSessionsOpen(false);
+            }
           }}
           onClose={() => setIsSessionsOpen(false)}
         />
@@ -190,8 +195,6 @@ function App() {
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
         <Header
-          isSessionsOpen={isSessionsOpen}
-          isSettingsOpen={isSettingsOpen}
           onToggleSessions={() => setIsSessionsOpen(!isSessionsOpen)}
           onToggleSettings={() => setIsSettingsOpen(!isSettingsOpen)}
         />

@@ -11,12 +11,15 @@ import type {
   CreateSessionResponse,
   SessionStatus,
 } from '@gacua/shared';
+import { useErrorHandler } from './useErrorHandler.js';
 
 export function useSessions(accessToken: string | null) {
   const [sessions, setSessions] = useState<SessionMetadata[] | null>(null);
   const [selectedSessionId, setSelectedSessionId] = useState<string | null>(
     () => sessionStorage.getItem('selectedSessionId'),
   );
+
+  const { handleError } = useErrorHandler();
 
   const loadSessionsMetadata = useCallback(async () => {
     try {
@@ -28,17 +31,14 @@ export function useSessions(accessToken: string | null) {
         const sessionsData: SessionMetadata[] = await response.json();
         setSessions(sessionsData);
       } else {
-        console.error(
-          'Failed to load sessions metadata - HTTP response not ok:',
-          response.status,
-          response.statusText,
+        handleError(
+          `Failed to load sessions metadata - HTTP response not ok: ${response.status} ${response.statusText}`,
         );
         setSessions([]);
       }
     } catch (error) {
-      console.error(
-        'Network or parsing error while loading sessions metadata:',
-        error,
+      handleError(
+        `Network or parsing error while loading sessions metadata: ${error}`,
       );
       setSessions([]);
     }
@@ -67,17 +67,14 @@ export function useSessions(accessToken: string | null) {
           const result: CreateSessionResponse = await response.json();
           return result.id;
         } else {
-          console.error(
-            'Failed to create new session - HTTP response not ok:',
-            response.status,
-            response.statusText,
+          handleError(
+            `Failed to create new session - HTTP response not ok: ${response.status} ${response.statusText}`,
           );
           return null;
         }
       } catch (error) {
-        console.error(
-          'Network or parsing error while creating new session:',
-          error,
+        handleError(
+          `Network or parsing error while creating new session: ${error}`,
         );
         return null;
       }
