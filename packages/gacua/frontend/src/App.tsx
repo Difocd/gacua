@@ -197,6 +197,12 @@ function App() {
         <Header
           isSessionsOpen={isSessionsOpen}
           isSettingsOpen={isSettingsOpen}
+          onTitleClick={() => {
+            switchSession(null);
+            if (!isBigScreen) {
+              setIsSessionsOpen(false);
+            }
+          }}
           onToggleSessions={() => setIsSessionsOpen(!isSessionsOpen)}
           onToggleSettings={() => setIsSettingsOpen(!isSettingsOpen)}
         />
