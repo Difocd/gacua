@@ -22,7 +22,11 @@ export default function Header({
   return (
     <div className="flex justify-between p-2 bg-white text-black border-b border-gray-200">
       <button onClick={onToggleSessions} className="hover:text-gray-400">
-        {isSessionsOpen ? <PanelLeftClose size={20} strokeWidth={1.3} /> : <PanelLeft size={20} strokeWidth={1.3} />}
+        {isSessionsOpen ? (
+          <PanelLeftClose size={20} strokeWidth={1.3} />
+        ) : (
+          <PanelLeft size={20} strokeWidth={1.3} />
+        )}
       </button>
       <h1 className="text-lg">GACUA</h1>
       <button onClick={onToggleSettings} className="hover:text-gray-400">

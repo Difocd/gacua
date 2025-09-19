@@ -10,7 +10,7 @@ interface SettingsProps {
 
 function Settings({ onClose }: SettingsProps) {
   return (
-    <div className="h-full bg-gray-900 text-white p-4 w-64">
+    <div className="h-full flex flex-col bg-white border-l border-gray-200">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-lg font-semibold">Settings</h2>
         {onClose && (

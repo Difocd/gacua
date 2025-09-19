@@ -177,7 +177,7 @@ function App() {
     <div className="h-svh flex flex-1">
       {/* Sessions Panel */}
       <div
-        className={`${isSessionsOpen ? 'block' : 'hidden'} fixed lg:relative left-0 h-full z-20 lg:z-0`}
+        className={`h-full z-20 lg:z-0 transition-all duration-300 ease-in-out fixed lg:relative overflow-hidden w-80 ${isSessionsOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 ${isSessionsOpen ? '' : 'lg:w-0'}`}
       >
         <Sessions
           sessions={sessions}
@@ -216,7 +216,7 @@ function App() {
 
       {/* Settings Panel */}
       <div
-        className={`${isSettingsOpen ? 'block' : 'hidden'} fixed lg:relative right-0 h-full z-20 lg:z-0`}
+        className={`h-full z-20 lg:z-0 transition-all duration-300 ease-in-out fixed lg:relative overflow-hidden w-80 ${isSettingsOpen ? 'translate-x-0' : 'translate-x-full'} lg:translate-x-0 ${isSettingsOpen ? '' : 'lg:w-0'} right-0`}
       >
         <Settings onClose={() => setIsSettingsOpen(false)} />
       </div>

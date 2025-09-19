@@ -21,7 +21,7 @@ const Sessions: React.FC<SessionsProps> = ({
   onClose,
 }) => {
   return (
-    <div className="h-full w-85 bg-gray-50 border-r border-gray-200 flex flex-col">
+    <div className="h-full flex flex-col bg-white border-r border-gray-200">
       <div className="p-2 flex justify-between items-center md:hidden">
         <h2 className="text-lg font-semibold">Sessions</h2>
         <button onClick={onClose} className="p-2">
