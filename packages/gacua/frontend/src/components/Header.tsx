@@ -21,15 +21,15 @@ export default function Header({
 }: HeaderProps) {
   return (
     <div className="flex justify-between p-2 bg-white text-black border-b border-gray-200">
-      <button onClick={onToggleSessions} className="hover:text-gray-400">
+      <button onClick={onToggleSessions} className="p-1 rounded hover:bg-gray-200">
         {isSessionsOpen ? (
           <PanelLeftClose size={20} strokeWidth={1.3} />
         ) : (
           <PanelLeft size={20} strokeWidth={1.3} />
         )}
       </button>
-      <h1 className="text-lg">GACUA</h1>
-      <button onClick={onToggleSettings} className="hover:text-gray-400">
+      <h1 className="text-lg pt-1">GACUA</h1>
+      <button onClick={onToggleSettings} className="p-1 rounded hover:bg-gray-200">
         <SlidersHorizontal size={20} strokeWidth={1.3} />
       </button>
     </div>
