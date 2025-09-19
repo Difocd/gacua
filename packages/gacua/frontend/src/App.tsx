@@ -195,6 +195,8 @@ function App() {
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
         <Header
+          isSessionsOpen={isSessionsOpen}
+          isSettingsOpen={isSettingsOpen}
           onToggleSessions={() => setIsSessionsOpen(!isSessionsOpen)}
           onToggleSettings={() => setIsSettingsOpen(!isSettingsOpen)}
         />
