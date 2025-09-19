@@ -11,36 +11,15 @@ interface SessionsProps {
   sessions: SessionMetadata[] | null;
   currentSessionId: string | null;
   onSwitchSession: (sessionId: string | null) => void;
-  onClose: () => void;
 }
 
 const Sessions: React.FC<SessionsProps> = ({
   sessions,
   currentSessionId,
   onSwitchSession,
-  onClose,
 }) => {
   return (
-    <div className="h-full flex flex-col bg-white border-r border-gray-200">
-      <div className="p-2 flex justify-between items-center md:hidden">
-        <h2 className="text-lg font-semibold">Sessions</h2>
-        <button onClick={onClose} className="p-2">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
-        </button>
-      </div>
+    <div className="h-full flex flex-col bg-white">
       <div className="flex-1 overflow-y-auto p-2">
         <button
           className="w-full py-3 px-4 mb-4 border-0 rounded-lg text-sm font-medium text-gray-700 cursor-pointer flex items-center justify-center transition-all duration-200 hover:bg-gray-100 hover:border-gray-300 active:scale-95"

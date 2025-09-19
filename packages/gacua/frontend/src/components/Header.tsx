@@ -7,30 +7,27 @@
 import { SlidersHorizontal, PanelLeft, PanelLeftClose } from 'lucide-react';
 
 interface HeaderProps {
-  isSessionsOpen: boolean;
+  isMenuOpen: boolean;
   isSettingsOpen: boolean;
   onTitleClick: () => void;
-  onToggleSessions: () => void;
+  onToggleMenu: () => void;
   onToggleSettings: () => void;
 }
 
 export default function Header({
-  isSessionsOpen,
+  isMenuOpen,
   isSettingsOpen,
   onTitleClick,
-  onToggleSessions,
+  onToggleMenu,
   onToggleSettings,
 }: HeaderProps) {
   return (
     <div className="flex justify-between p-2 bg-white text-black border-b border-gray-200">
-      <button
-        onClick={onToggleSessions}
-        className="p-1 rounded hover:bg-gray-200"
-      >
-        {isSessionsOpen ? (
-          <PanelLeftClose size={20} strokeWidth={1.3} />
+      <button onClick={onToggleMenu} className="p-1 rounded hover:bg-gray-200">
+        {isMenuOpen ? (
+          <PanelLeftClose size={20} strokeWidth={1.25} />
         ) : (
-          <PanelLeft size={20} strokeWidth={1.3} />
+          <PanelLeft size={20} strokeWidth={1.25} />
         )}
       </button>
       <button onClick={onTitleClick} className="text-lg hover:cursor-pointer">
@@ -40,7 +37,7 @@ export default function Header({
         onClick={onToggleSettings}
         className="p-1 rounded hover:bg-gray-200"
       >
-        <SlidersHorizontal size={20} strokeWidth={1.3} />
+        <SlidersHorizontal size={20} strokeWidth={1.25} />
       </button>
     </div>
   );

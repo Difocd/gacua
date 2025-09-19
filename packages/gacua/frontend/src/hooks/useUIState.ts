@@ -9,19 +9,19 @@ import { useMediaQuery } from './useMediaQuery.js';
 
 export function useUIState() {
   const isBigScreen = useMediaQuery('(min-width: 1024px)');
-  const [isSessionsOpen, setIsSessionsOpen] = useState(isBigScreen);
+  const [isMenuOpen, setIsMenuOpen] = useState(isBigScreen);
   const [isSettingsOpen, setIsSettingsOpen] = useState(isBigScreen);
 
   useEffect(() => {
-    setIsSessionsOpen(isBigScreen);
+    setIsMenuOpen(isBigScreen);
     setIsSettingsOpen(isBigScreen);
   }, [isBigScreen]);
 
   return {
     isBigScreen,
-    isSessionsOpen,
+    isMenuOpen,
     isSettingsOpen,
-    setIsSessionsOpen,
+    setIsMenuOpen,
     setIsSettingsOpen,
   };
 }

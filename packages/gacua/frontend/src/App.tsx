@@ -7,7 +7,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import type { ServerEvent, ToolReviewResponse } from '@gacua/shared';
 
-import Sessions from './components/Sessions.js';
+import Menu from './components/Menu.js';
 import Settings from './components/Settings.js';
 import Chat from './components/Chat.js';
 import Header from './components/Header.js';
@@ -161,9 +161,9 @@ function App() {
 
   const {
     isBigScreen,
-    isSessionsOpen,
+    isMenuOpen,
     isSettingsOpen,
-    setIsSessionsOpen,
+    setIsMenuOpen,
     setIsSettingsOpen,
   } = useUIState();
 
@@ -175,35 +175,35 @@ function App() {
 
   return (
     <div className="h-svh flex flex-1">
-      {/* Sessions Panel */}
+      {/* Menu Panel */}
       <div
-        className={`h-full z-20 lg:z-0 transition-all duration-300 ease-in-out fixed lg:relative overflow-hidden w-80 ${isSessionsOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 ${isSessionsOpen ? '' : 'lg:w-0'}`}
+        className={`h-full z-20 lg:z-0 transition-all duration-300 ease-in-out fixed lg:relative overflow-hidden w-80 ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 ${isMenuOpen ? '' : 'lg:w-0'}`}
       >
-        <Sessions
+        <Menu
           sessions={sessions}
           currentSessionId={selectedSessionId}
           onSwitchSession={(id) => {
             switchSession(id);
             if (!isBigScreen) {
-              setIsSessionsOpen(false);
+              setIsMenuOpen(false);
             }
           }}
-          onClose={() => setIsSessionsOpen(false)}
+          onClose={() => setIsMenuOpen(false)}
         />
       </div>
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
         <Header
-          isSessionsOpen={isSessionsOpen}
+          isMenuOpen={isMenuOpen}
           isSettingsOpen={isSettingsOpen}
           onTitleClick={() => {
             switchSession(null);
             if (!isBigScreen) {
-              setIsSessionsOpen(false);
+              setIsMenuOpen(false);
             }
           }}
-          onToggleSessions={() => setIsSessionsOpen(!isSessionsOpen)}
+          onToggleMenu={() => setIsMenuOpen(!isMenuOpen)}
           onToggleSettings={() => setIsSettingsOpen(!isSettingsOpen)}
         />
         <Chat
@@ -230,10 +230,10 @@ function App() {
       {/* Mobile Overlays */}
       <div
         className={`fixed w-full h-full bg-black opacity-50 z-10 ${
-          isSessionsOpen || isSettingsOpen ? 'block' : 'hidden'
+          isMenuOpen || isSettingsOpen ? 'block' : 'hidden'
         } lg:hidden`}
         onClick={() => {
-          setIsSessionsOpen(false);
+          setIsMenuOpen(false);
           setIsSettingsOpen(false);
         }}
       ></div>
