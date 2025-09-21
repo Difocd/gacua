@@ -5,9 +5,10 @@
  */
 
 import React from 'react';
-import { X } from 'lucide-react';
+import { X, Sun, Moon, Monitor } from 'lucide-react';
 import type { SessionMetadata } from '@gacua/shared';
 import Sessions from './Sessions.js';
+import { useTheme } from '../contexts/ThemeContext.js';
 
 interface MenuProps {
   sessions: SessionMetadata[] | null;
@@ -16,6 +17,48 @@ interface MenuProps {
   onClose: () => void;
 }
 
+const ThemeToggle: React.FC<{}> = () => {
+  const { theme, setTheme } = useTheme();
+
+  return (
+    <div className="flex justify-center">
+      <button
+        onClick={() => setTheme('light')}
+        className={`px-3 py-1 border border-gray-200 dark:border-gray-700 ${
+          theme === 'light'
+            ? 'bg-gray-200'
+            : 'hover:bg-gray-200 dark:hover:bg-gray-700'
+        }`}
+        title="Light theme"
+      >
+        <Sun size={20} strokeWidth={1.25} />
+      </button>
+      <button
+        onClick={() => setTheme('dark')}
+        className={`px-3 py-1 border border-gray-200 dark:border-gray-700 ${
+          theme === 'dark'
+            ? 'bg-gray-700'
+            : 'hover:bg-gray-200 dark:hover:bg-gray-700'
+        }`}
+        title="Dark theme"
+      >
+        <Moon size={20} strokeWidth={1.25} />
+      </button>
+      <button
+        onClick={() => setTheme('system')}
+        className={`px-3 py-1 border border-gray-200 dark:border-gray-700 ${
+          theme === 'system'
+            ? 'bg-gray-200 dark:bg-gray-700'
+            : 'hover:bg-gray-200 dark:hover:bg-gray-700'
+        }`}
+        title="System theme"
+      >
+        <Monitor size={20} strokeWidth={1.25} />
+      </button>
+    </div>
+  );
+};
+
 const Menu: React.FC<MenuProps> = ({
   sessions,
   currentSessionId,
@@ -23,10 +66,13 @@ const Menu: React.FC<MenuProps> = ({
   onClose,
 }) => {
   return (
-    <div className="h-full flex flex-col border-r border-gray-200">
-      <div className="lg:hidden flex justify-between p-2 bg-white">
+    <div className="h-full flex flex-col bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700">
+      <div className="lg:hidden flex justify-between p-2">
         <h1 className="px-3 text-lg font-semibold">Menu</h1>
-        <button onClick={onClose} className="p-1 rounded hover:bg-gray-200">
+        <button
+          onClick={onClose}
+          className="p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700"
+        >
           <X size={20} strokeWidth={1.25} />
         </button>
       </div>
@@ -35,6 +81,9 @@ const Menu: React.FC<MenuProps> = ({
         currentSessionId={currentSessionId}
         onSwitchSession={onSwitchSession}
       />
+      <div className="py-1">
+        <ThemeToggle />
+      </div>
     </div>
   );
 };

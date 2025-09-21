@@ -19,7 +19,7 @@ const Sessions: React.FC<SessionsProps> = ({
   onSwitchSession,
 }) => {
   return (
-    <div className="h-full flex flex-col bg-white">
+    <div className="flex flex-col bg-white overflow-hidden">
       <div className="flex-1 overflow-y-auto p-2">
         <button
           className="w-full py-3 px-4 mb-4 border-0 rounded-lg text-sm font-medium text-gray-700 cursor-pointer flex items-center justify-center transition-all duration-200 hover:bg-gray-100 hover:border-gray-300 active:scale-95"

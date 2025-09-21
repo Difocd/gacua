@@ -22,8 +22,11 @@ export default function Header({
   onToggleSettings,
 }: HeaderProps) {
   return (
-    <div className="flex justify-between p-2 bg-white text-black border-b border-gray-200">
-      <button onClick={onToggleMenu} className="p-1 rounded hover:bg-gray-200">
+    <div className="flex justify-between p-2 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
+      <button
+        onClick={onToggleMenu}
+        className="p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-800"
+      >
         {isMenuOpen ? (
           <PanelLeftClose size={20} strokeWidth={1.25} />
         ) : (
@@ -35,7 +38,7 @@ export default function Header({
       </button>
       <button
         onClick={onToggleSettings}
-        className="p-1 rounded hover:bg-gray-200"
+        className="p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-800"
       >
         <SlidersHorizontal size={20} strokeWidth={1.25} />
       </button>

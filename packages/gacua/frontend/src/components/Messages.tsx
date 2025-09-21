@@ -222,7 +222,7 @@ const Messages: React.FC<MessagesProps> = ({
     processedMessages.length === 0
   ) {
     return (
-      <div className="absolute inset-0 flex items-center justify-center mb-32">
+      <div className="absolute inset-0 flex items-center justify-center mb-32 bg-white dark:bg-gray-900">
         {!currentSessionId ? (
           <WelcomeMessage
             title="Welcome to GACUA"

@@ -174,7 +174,7 @@ function App() {
   }, [selectedSessionId, handleSessionSwitch]);
 
   return (
-    <div className="h-svh flex flex-1">
+    <div className="h-svh flex flex-1 text-black dark:text-gray-100">
       {/* Menu Panel */}
       <div
         className={`h-full z-20 lg:z-0 transition-all duration-300 ease-in-out fixed lg:relative overflow-hidden w-80 ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 ${isMenuOpen ? '' : 'lg:w-0'}`}
@@ -229,7 +229,7 @@ function App() {
 
       {/* Mobile Overlays */}
       <div
-        className={`fixed w-full h-full bg-black opacity-50 z-10 ${
+        className={`fixed w-full h-full bg-black dark:bg-white opacity-50 z-10 ${
           isMenuOpen || isSettingsOpen ? 'block' : 'hidden'
         } lg:hidden`}
         onClick={() => {
