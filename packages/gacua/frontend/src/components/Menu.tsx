@@ -71,13 +71,13 @@ const Menu: React.FC<MenuProps> = ({
         <h1 className="px-3 text-lg">Menu</h1>
         <button
           onClick={onClose}
-          className="p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700"
+          className="p-1 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700"
         >
           <X size={20} strokeWidth={1.25} />
         </button>
       </div>
 
-      <div className="py-1 px-3">
+      <div className="py-1 px-10">
         <button
           className="relative w-full p-2 cursor-pointer flex justify-center hover:bg-gray-200 dark:hover:bg-gray-700"
           onClick={() => onSwitchSession(null)}
@@ -85,17 +85,19 @@ const Menu: React.FC<MenuProps> = ({
           <p className="text-center">New chat</p>
           <Plus
             size={20}
-            strokeWidth={2}
-            className="absolute left-[28%] top-1/2 -translate-y-1/2"
+            strokeWidth={1.5}
+            className="absolute left-[24%] top-1/2 -translate-y-1/2"
           />
         </button>
       </div>
 
-      <Sessions
-        sessions={sessions}
-        currentSessionId={currentSessionId}
-        onSwitchSession={onSwitchSession}
-      />
+      <div className="grow overflow-y-auto">
+        <Sessions
+          sessions={sessions}
+          currentSessionId={currentSessionId}
+          onSwitchSession={onSwitchSession}
+        />
+      </div>
 
       <div className="py-1">
         <ThemeToggle />
