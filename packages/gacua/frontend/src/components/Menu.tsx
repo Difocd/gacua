@@ -77,7 +77,7 @@ const Menu: React.FC<MenuProps> = ({
         </button>
       </div>
 
-      <div className="py-1 px-10">
+      <div className="p-1">
         <button
           className="relative w-full p-2 cursor-pointer flex justify-center hover:bg-gray-200 dark:hover:bg-gray-700"
           onClick={() => onSwitchSession(null)}
@@ -86,7 +86,7 @@ const Menu: React.FC<MenuProps> = ({
           <Plus
             size={20}
             strokeWidth={1.5}
-            className="absolute left-[24%] top-1/2 -translate-y-1/2"
+            className="absolute left-[30%] top-1/2 -translate-y-1/2"
           />
         </button>
       </div>
