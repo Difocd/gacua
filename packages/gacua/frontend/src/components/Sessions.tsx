@@ -21,25 +21,6 @@ const Sessions: React.FC<SessionsProps> = ({
   return (
     <div className="flex flex-col bg-white overflow-hidden">
       <div className="flex-1 overflow-y-auto p-2">
-        <button
-          className="w-full py-3 px-4 mb-4 border-0 rounded-lg text-sm font-medium text-gray-700 cursor-pointer flex items-center justify-center transition-all duration-200 hover:bg-gray-100 hover:border-gray-300 active:scale-95"
-          onClick={() => onSwitchSession(null)}
-        >
-          <span className="relative">
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              className="absolute right-full top-1/2 -translate-y-1/2 mr-2"
-            >
-              <path d="M12 5v14M5 12h14" />
-            </svg>
-            New chat
-          </span>
-        </button>
         {sessions === null ? (
           <div className="flex items-center justify-center h-32 text-gray-400 text-sm">
             <p>Loading...</p>

@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import { X, Sun, Moon, Monitor } from 'lucide-react';
+import { X, Plus, Sun, Moon, Monitor } from 'lucide-react';
 import type { SessionMetadata } from '@gacua/shared';
 import Sessions from './Sessions.js';
 import { useTheme } from '../contexts/ThemeContext.js';
@@ -68,7 +68,7 @@ const Menu: React.FC<MenuProps> = ({
   return (
     <div className="h-full flex flex-col bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700">
       <div className="lg:hidden flex justify-between p-2">
-        <h1 className="px-3 text-lg font-semibold">Menu</h1>
+        <h1 className="px-3 text-lg">Menu</h1>
         <button
           onClick={onClose}
           className="p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700"
@@ -76,11 +76,27 @@ const Menu: React.FC<MenuProps> = ({
           <X size={20} strokeWidth={1.25} />
         </button>
       </div>
+
+      <div className="py-1 px-3">
+        <button
+          className="relative w-full p-2 cursor-pointer flex justify-center hover:bg-gray-200 dark:hover:bg-gray-700"
+          onClick={() => onSwitchSession(null)}
+        >
+          <p className="text-center">New chat</p>
+          <Plus
+            size={20}
+            strokeWidth={2}
+            className="absolute left-[28%] top-1/2 -translate-y-1/2"
+          />
+        </button>
+      </div>
+
       <Sessions
         sessions={sessions}
         currentSessionId={currentSessionId}
         onSwitchSession={onSwitchSession}
       />
+
       <div className="py-1">
         <ThemeToggle />
       </div>
