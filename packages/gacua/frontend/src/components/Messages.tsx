@@ -37,7 +37,7 @@ const MessageTitle = ({ message }: { message: DisplayMessage }) => {
   }
 
   return (
-    <div className="py-1 text-xs text-gray-500">
+    <div className="text-xs text-gray-500">
       {toDisplayName(message.role)}{' '}
       {message.timestamp && `at ${message.timestamp.toLocaleTimeString()}`}
     </div>
@@ -58,10 +58,10 @@ const MessageContent = ({
   accessToken: string | null;
 }) => (
   <div
-    className={`px-3 relative ${
+    className={`px-3 relative  ${
       message.role === 'user'
-        ? 'max-w-full rounded-2xl rounded-br-sm bg-slate-500 text-white'
-        : `w-full border-solid text-black border-gray-300 ${leftAlignment ? 'border-l-2' : 'border-r-2'}`
+        ? 'bg-slate-500 dark:bg-slate-300 text-white dark:text-black'
+        : `w-full border-gray-300 dark:border-gray-600 ${leftAlignment ? 'border-l-2' : 'border-r-2'}`
     }`}
   >
     {message.content.map((block, index) => (
@@ -120,7 +120,7 @@ const MessageContent = ({
                   : block.image.src.replace(/^internal:\/\//, '/images/')
               }
               alt={block.image.alt ?? block.image.src.split('/').pop() ?? ''}
-              className="h-auto lg:w-[70%] cursor-pointer border border-gray-200"
+              className="h-auto lg:w-[70%] cursor-pointer border border-gray-200 dark:border-gray-800"
               onClick={() => onImageClick(block.image!.src)}
             />
           </div>
@@ -248,8 +248,8 @@ const Messages: React.FC<MessagesProps> = ({
 
   return (
     <>
-      <div className="absolute inset-0 overflow-y-auto">
-        <div className="mx-auto max-w-4xl p-4 pb-64">
+      <div className="absolute inset-0 overflow-y-auto bg-white dark:bg-gray-900">
+        <div className="mx-auto max-w-4xl p-4 pb-64 flex flex-col gap-4">
           {processedMessages.map((message) => {
             const leftAlignment =
               ['model', 'grounding_model'].includes(message.role) ||
@@ -257,7 +257,7 @@ const Messages: React.FC<MessagesProps> = ({
             return (
               <div
                 key={message.id ?? null}
-                className={`mb-4 flex flex-col ${leftAlignment ? 'items-start' : 'items-end'}`}
+                className={`flex flex-col gap-1 ${leftAlignment ? 'items-start' : 'items-end'}`}
               >
                 <MessageTitle message={message} />
                 <MessageContent
