@@ -26,19 +26,6 @@ interface MessagesProps {
   onToolReviewResponse: (toolReview: ToolReviewResponse) => void;
 }
 
-const WelcomeMessage = ({
-  title,
-  message,
-}: {
-  title: string;
-  message: string;
-}) => (
-  <div className="flex flex-col items-center justify-center text-center">
-    <h2 className="mb-2 text-2xl font-semibold text-gray-700">{title}</h2>
-    <p className="text-base text-gray-500 opacity-80 px-2">{message}</p>
-  </div>
-);
-
 const MessageTitle = ({ message }: { message: DisplayMessage }) => {
   function toDisplayName(name: string) {
     switch (name) {
@@ -156,7 +143,7 @@ const Messages: React.FC<MessagesProps> = ({
   accessToken,
   onToolReviewResponse,
 }) => {
-  console.log('messages', messages);
+  console.debug('messages', messages);
 
   const processedMessages: DisplayMessage[] | null = React.useMemo(() => {
     if (!messages) return null;
@@ -221,27 +208,42 @@ const Messages: React.FC<MessagesProps> = ({
     processedMessages === null ||
     processedMessages.length === 0
   ) {
-    return (
-      <div className="absolute inset-0 flex items-center justify-center mb-32 bg-white dark:bg-gray-900">
-        {!currentSessionId ? (
-          <WelcomeMessage
-            title="Welcome to GACUA"
-            message="Create a new session or select an existing one to start chatting."
-          />
-        ) : processedMessages === null ? (
-          <WelcomeMessage
-            title="Loading..."
-            message="Loading your messages..."
-          />
-        ) : (
-          // processedMessages.length === 0
-          <WelcomeMessage
-            title="New Session"
-            message="Start a conversation by typing a message below."
-          />
-        )}
+    const WelcomeMessage = ({
+      title,
+      message,
+    }: {
+      title: string;
+      message: string;
+    }) => (
+      <div className="h-full flex pb-32 justify-center bg-white dark:bg-gray-900">
+        <div className="flex flex-col gap-2 items-center justify-center text-center">
+          <h2 className="text-2xl font-semibold text-gray-700 dark:text-gray-300">
+            {title}
+          </h2>
+          <p className="text-base text-gray-500 px-2">{message}</p>
+        </div>
       </div>
     );
+
+    if (!currentSessionId) {
+      return (
+        <WelcomeMessage
+          title="Welcome to GACUA"
+          message="Create a new session or select an existing one to start chatting."
+        />
+      );
+    } else if (processedMessages === null) {
+      return (
+        <WelcomeMessage title="Loading..." message="Loading your messages..." />
+      );
+    } else if (processedMessages.length === 0) {
+      return (
+        <WelcomeMessage
+          title="New Session"
+          message="Start a conversation by typing a message below."
+        />
+      );
+    }
   }
 
   return (
