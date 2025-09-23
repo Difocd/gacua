@@ -55,22 +55,23 @@ export const ToolReview: React.FC<ToolReviewProps> = ({
     isSelected: boolean,
   ) => {
     const baseClasses =
-      'px-2 py-1 text-sm rounded border border-gray-200 transition-colors duration-200';
+      'px-2 py-1 text-sm rounded border border-gray-200 dark:border-gray-700 transition-colors duration-200';
 
     if (isSelected) {
       const colorClasses = {
-        green: 'text-green-700 bg-green-50',
-        blue: 'text-blue-700 bg-blue-50',
-        red: 'text-red-700 bg-red-50',
+        green: 'text-green-700 dark:text-green-200 bg-green-200/50',
+        blue: 'text-blue-700 dark:text-blue-200 bg-blue-200/50',
+        red: 'text-red-700 dark:text-red-200 bg-red-200/50',
       };
       return `${baseClasses} ${colorClasses[option.color as keyof typeof colorClasses]}`;
     }
 
     if (!localChoice) {
       const colorClasses = {
-        green: 'text-green-700 bg-green-50 hover:bg-green-100',
-        blue: 'text-blue-700 bg-blue-50 hover:bg-blue-100',
-        red: 'text-red-700 bg-red-50 hover:bg-red-100',
+        green:
+          'text-green-700 dark:text-green-200 bg-green-100/20 hover:bg-green-200/50',
+        blue: 'text-blue-700 dark:text-blue-200 bg-blue-100/20 hover:bg-blue-200/50',
+        red: 'text-red-700 dark:text-red-200 bg-red-100/20 hover:bg-red-200/50',
       };
       return `${baseClasses} ${colorClasses[option.color as keyof typeof colorClasses]} cursor-pointer`;
     }

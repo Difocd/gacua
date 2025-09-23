@@ -26,7 +26,7 @@ export const FunctionResponse: React.FC<FunctionResponseProps> = ({
       content={responseText}
       expandedContent={
         <div>
-          <div className="pt-1 px-2 text-s text-slate-800">
+          <div className="pt-1 px-2 text-s">
             <div>ID: {functionResponse.id}</div>
             <div>Name: {functionResponse.name}</div>
           </div>

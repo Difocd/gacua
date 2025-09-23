@@ -29,12 +29,12 @@ export const Thought: React.FC<{ thought: string }> = ({ thought }) => {
         className="flex cursor-pointer select-none items-center"
         onClick={toggle}
       >
-        <span className="text-sm text-gray-400 hover:text-gray-600 transition-colors">
+        <span className="text-sm text-gray-400 dark:text-gray-600 hover:text-gray-600 dark:hover:text-gray-400 transition-colors">
           {isCollapsed ? `Thought: ${lastTitle}` : 'Hide Thought'}
         </span>
       </div>
       {!isCollapsed && (
-        <div className="mt-2 pl-6 text-sm text-gray-400">
+        <div className="mt-2 pl-6 text-sm text-gray-400 dark:text-gray-600">
           <div className="italic m-0 whitespace-pre-wrap break-words leading-tight">
             {processedThought.split(/(\*\*.*?\*\*)/g).map((part, index) => {
               if (part.startsWith('**') && part.endsWith('**')) {

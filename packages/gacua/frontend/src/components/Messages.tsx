@@ -92,7 +92,7 @@ const MessageContent = ({
                     <li className="mb-2 break-words">{children}</li>
                   ),
                   code: ({ children }) => (
-                    <code className="px-1 py-0.5 rounded text-sm text-black bg-gray-100 break-all">
+                    <code className="px-1 py-0.5 rounded text-sm text-black bg-gray-200 break-all">
                       {children}
                     </code>
                   ),
@@ -120,7 +120,7 @@ const MessageContent = ({
                   : block.image.src.replace(/^internal:\/\//, '/images/')
               }
               alt={block.image.alt ?? block.image.src.split('/').pop() ?? ''}
-              className="h-auto lg:w-[70%] cursor-pointer border border-gray-200 dark:border-gray-800"
+              className="h-auto max-h-80 cursor-pointer border border-gray-200 dark:border-gray-800"
               onClick={() => onImageClick(block.image!.src)}
             />
           </div>

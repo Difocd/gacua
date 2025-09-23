@@ -19,19 +19,13 @@ const ArgsDisplay: React.FC<{ functionCall: FunctionCallType }> = ({
   return (
     <div className="space-y-2">
       {functionCall.id && (
-        <div className="pt-1 px-2 text-s text-slate-800">
-          ID: {functionCall.id}
-        </div>
+        <div className="pt-1 px-2 text-s">ID: {functionCall.id}</div>
       )}
       <table className="w-full border-collapse">
         <thead>
-          <tr className="border-b border-slate-300">
-            <th className="text-left py-1 px-2 font-semibold text-slate-800">
-              Parameter
-            </th>
-            <th className="text-left py-1 px-2 font-semibold text-slate-800">
-              Value
-            </th>
+          <tr className="border-b border-slate-300 dark:border-gray-600">
+            <th className="text-left py-1 px-2 font-semibold">Parameter</th>
+            <th className="text-left py-1 px-2 font-semibold">Value</th>
           </tr>
         </thead>
         <tbody>
@@ -40,9 +34,9 @@ const ArgsDisplay: React.FC<{ functionCall: FunctionCallType }> = ({
             .map(([key, value]) => (
               <tr
                 key={key}
-                className="border-b border-slate-200 last:border-b-0"
+                className="border-b border-slate-200 dark:border-gray-700 last:border-b-0"
               >
-                <td className="py-1 px-2 text-slate-800 align-top">{key}</td>
+                <td className="py-1 px-2 align-top">{key}</td>
                 <td className="py-1 px-2 whitespace-pre-wrap break-all">
                   {typeof value === 'string'
                     ? value

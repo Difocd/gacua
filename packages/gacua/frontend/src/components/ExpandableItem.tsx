@@ -30,17 +30,17 @@ export const ExpandableItem: React.FC<ExpandableItemProps> = ({
   return (
     <div className={`py-1 w-fit text-sm`}>
       <div
-        className={`flex items-center transition-colors cursor-pointer hover:bg-slate-100`}
+        className={`flex items-center transition-colors cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700`}
         onClick={toggle}
       >
         <div className="flex items-baseline gap-1">
           <span className={labelColor}>{label}:</span>
-          <span className="text-gray-800">{content}</span>
+          <span className="">{content}</span>
         </div>
       </div>
 
       {isExpanded && expandedContent && (
-        <div className="font-mono text-sm text-slate-700 overflow-x-auto bg-slate-50 p-2 rounded-md">
+        <div className="font-mono text-sm overflow-x-auto bg-slate-50 dark:bg-gray-800 p-2 rounded-md">
           {expandedContent}
         </div>
       )}
